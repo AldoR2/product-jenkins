@@ -32,11 +32,11 @@ node {
             sshagent (credentials: ['ssh-prod']) {
                 
                 sh 'mkdir -p ~/.ssh'
-                sh 'ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts'
+                sh 'ssh-keyscan -H ${PROD_HOST} >> ~/.ssh/known_hosts'
 
                 sh '''
                 rsync -rav --delete ./ \
-                aldor@Alduy:/home/aldor/deploy/ \
+                ubuntu@${PROD_HOST}:/home/ubuntu/deploy/ \
                 --exclude=.env \
                 --exclude=storage \
                 --exclude=.git
