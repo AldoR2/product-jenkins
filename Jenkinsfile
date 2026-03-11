@@ -27,22 +27,22 @@ node {
     }
 
     stage("Deploy"){
-        docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
+    docker.image('agung3wi/alpine-rsync:1.1').inside {
 
-            sshagent (credentials: ['ssh-prod']) {
-                
-                sh 'mkdir -p ~/.ssh'
-                sh 'ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts'
+        sshagent (credentials: ['ssh-prod']) {
+            
+            sh 'mkdir -p ~/.ssh'
+            sh 'ssh-keyscan -H ${PROD_HOST} >> ~/.ssh/known_hosts'
 
-                sh '''
-                rsync -rav --delete ./ \
-                ubuntu@${PROD_HOST}:/home/ubuntu/prod.product-jenkins.xyz/ \
-                --exclude=.env \
-                --exclude=storage \
-                --exclude=.git
-                '''
-            }
+            sh '''
+            rsync -rav --delete ./ \
+            ubuntu@${PROD_HOST}:/home/ubuntu/prod.product-jenkins.xyz/ \
+            --exclude=.env \
+            --exclude=storage \
+            --exclude=.git
+            '''
         }
     }
+}
 
 }
