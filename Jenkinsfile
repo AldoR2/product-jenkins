@@ -26,23 +26,23 @@ node {
         }
     }
 
-    // stage("Deploy"){
-    //     docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
+    stage("Deploy"){
+        docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
 
-    //         sshagent (credentials: ['ssh-prod']) {
+            sshagent (credentials: ['ssh-prod']) {
                 
-    //             sh 'mkdir -p ~/.ssh'
-    //             sh 'ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts'
+                sh 'mkdir -p ~/.ssh'
+                sh 'ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts'
 
-    //             sh '''
-    //             rsync -rav --delete ./ \
-    //             sakab@$PROD_HOST:/home/sakab/deploy/ \
-    //             --exclude=.env \
-    //             --exclude=storage \
-    //             --exclude=.git
-    //             '''
-    //         }
-    //     }
-    // }
+                sh '''
+                rsync -rav --delete ./ \
+                aldor@Alduy:/home/aldor/deploy/ \
+                --exclude=.env \
+                --exclude=storage \
+                --exclude=.git
+                '''
+            }
+        }
+    }
 
 }
