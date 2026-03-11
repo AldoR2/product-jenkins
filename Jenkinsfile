@@ -1,26 +1,14 @@
 node {
-
-    stage('Checkout') {
-        checkout scm
-    }
-
-    stage('Build') {
-        docker.image('composer:2.7-php8.2').inside {
-            sh 'git config --global --add safe.directory /var/jenkins_home/workspace/laravel-dev'
-            sh 'composer install --no-interaction --prefer-dist --no-progress'
+    checkout scm
+    // deploy env dev
+    stage("Build"){
+        docker.image('php:8.4-cli').inside('-u root') {
+            sh 'rm composer.lock'
+            sh 'composer install'
         }
     }
-
-    stage('Test') {
-        docker.image('composer:2.7-php8.2').inside {
-            sh 'php artisan test || true'
-        }
+ // Testing
+    docker.image('ubuntu').inside('-u root') {
+        sh 'echo "Ini adalah test"'
     }
-
-    stage('Deploy') {
-        sshagent(['ssh-prod']) {
-            sh 'ansible-playbook -i hosts deploy.yml'
-        }
-    }
-
 }
