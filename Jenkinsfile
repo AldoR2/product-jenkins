@@ -1,6 +1,6 @@
 node {
 
-    // env.PROD_HOST = "192.168.65.254"
+    env.PROD_HOST = "192.168.56.1"
 
     checkout scm
 
