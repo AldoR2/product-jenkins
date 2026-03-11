@@ -1,19 +1,14 @@
 node {
-
-    stage('Checkout') {
-        checkout scm
-    }
-
-    stage('Build') {
-        docker.image('composer:2-php8.3').inside('--user root') {
-            sh 'composer install --no-interaction --prefer-dist'
+    checkout scm
+    // deploy env dev
+    stage("Build"){
+        docker.image('php:8.3-cli').inside('--u root') {
+            sh 'rm composer.lock'
+            sh 'composer install'
         }
     }
-
-    stage('Test') {
-        docker.image('ubuntu').inside('--user root') {
-            sh 'echo "Ini adalah test"'
-        }
+ // Testing
+    docker.image('ubuntu').inside('-u root') {
+        sh 'echo "Ini adalah test"'
     }
-
 }
