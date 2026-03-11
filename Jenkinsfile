@@ -36,7 +36,7 @@ node {
 
                 sh '''
                 rsync -rav --delete ./ \
-                ubuntu@PROD_HOST:/home/ubuntu/prod.product-jenkins.xyz/ \
+                ubuntu@${PROD_HOST}:/home/ubuntu/prod.product-jenkins.xyz/ \
                 --exclude=.env \
                 --exclude=storage \
                 --exclude=.git
