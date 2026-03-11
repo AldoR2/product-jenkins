@@ -33,11 +33,11 @@ node {
         sshagent (credentials: ['ssh-prod']) {
             
             sh 'mkdir -p ~/.ssh'
-            sh 'ssh-keyscan -H ${PROD_HOST} >> ~/.ssh/known_hosts'
+            sh 'ssh-keyscan -H $PROD_HOST >> ~/.ssh/known_hosts'
 
             sh '''
             rsync -rav --delete ./ \
-            $PROD_USER@${PROD_HOST}:/home/ubuntu/prod.product-jenkins.xyz/ \
+            $PROD_USER@$PROD_HOST:/home/ubuntu/prod.product-jenkins.xyz/ \
             --exclude=.env \
             --exclude=storage \
             --exclude=.git
@@ -45,6 +45,4 @@ node {
         }
     }
 }
-
-
 
