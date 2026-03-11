@@ -3,6 +3,7 @@ node {
 
     stage("Build") {
         docker.image('composer:2').inside('-u root') {
+            sh 'git config --global --add safe.directory /var/jenkins_home/workspace/laravel-dev'
             sh 'composer install'
         }
     }
