@@ -30,7 +30,7 @@ node {
     stage("Deploy"){
     docker.image('agung3wi/alpine-rsync:1.1').inside {
 
-        sshagent (credentials: ['ssh-prod']) {
+        sshagent (credentials: ['ssh-prod']).inside('-u root') {
             
             sh 'mkdir -p ~/.ssh'
             sh 'ssh-keyscan -H $PROD_HOST >> ~/.ssh/known_hosts'
@@ -45,5 +45,6 @@ node {
         }
     }
 }
+
 
 }
