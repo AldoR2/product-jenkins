@@ -1,22 +1,21 @@
 node {
+    checkout scm
 
-    stage('Checkout') {
-        checkout scm
-    }
-
-    stage('Build') {
-        docker.image('php:8.3-cli').inside {
-            sh 'apt-get update'
-            sh 'apt-get install -y git unzip curl'
-            sh 'curl -sS https://getcomposer.org/installer | php'
-            sh 'php composer.phar install --no-interaction --prefer-dist'
+    stage("Build") {
+        docker.image('composer:2').inside('-u root') {
+            sh 'composer install'
         }
     }
 
-    stage('Test') {
-        docker.image('ubuntu').inside {
+    stage("Test") {
+        docker.image('ubuntu').inside('-u root') {
             sh 'echo "Ini adalah test"'
         }
     }
 
+    stage("Deploy") {
+        sshagent(['ssh-prod']) {
+            sh 'ansible-playbook -i hosts deploy.yml'
+        }
+    }
 }
