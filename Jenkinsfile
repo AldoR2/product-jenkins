@@ -1,6 +1,7 @@
 node {
 
-    env.PROD_HOST = "192.168.56.1"
+    env.PROD_HOST = "172.27.208.248"
+    env.PROD_USER = "aldor"
 
     checkout scm
 
@@ -36,7 +37,7 @@ node {
 
             sh '''
             rsync -rav --delete ./ \
-            ubuntu@${PROD_HOST}:/home/ubuntu/prod.product-jenkins.xyz/ \
+            $PROD_USER@${PROD_HOST}:/home/ubuntu/prod.product-jenkins.xyz/ \
             --exclude=.env \
             --exclude=storage \
             --exclude=.git
@@ -45,4 +46,5 @@ node {
     }
 }
 
-}
+
+
