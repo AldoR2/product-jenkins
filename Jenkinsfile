@@ -36,11 +36,14 @@ node {
                 // Proses Sync File
                 sh '''
                 rsync -rav --delete ./ \
+                -e "ssh -o StrictHostKeyChecking=no" \
                 $PROD_USER@$PROD_HOST:/home/$PROD_USER/prod.product-jenkins.xyz/ \
                 --exclude=.env \
                 --exclude=storage \
                 --exclude=.git
                 '''
+
+                
 
                 sh "ssh $PROD_USER@$PROD_HOST 'cd /home/$PROD_USER/prod.product-jenkins.xyz/ && composer install --no-dev && php artisan optimize'"
             }
