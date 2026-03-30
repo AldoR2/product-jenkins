@@ -1,6 +1,6 @@
 node {
 
-    env.PROD_HOST = "172.27.208.248"
+    env.PROD_HOST = "localhost"
     env.PROD_USER = "aldor"
 
     checkout scm
