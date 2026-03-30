@@ -37,7 +37,7 @@ node {
                 rsync -rav --delete ./ \
                 --no-perms --no-owner --no-group --omit-dir-times \
                 -e "ssh -o StrictHostKeyChecking=no" \
-                $PROD_USER@$PROD_HOST:/home/$PROD_USER/app-laravel/ \
+                $PROD_USER@$PROD_HOST:/home/$PROD_USER/prod.product-jenkins.xyz/ \
                 --exclude=.env \
                 --exclude=storage \
                 --exclude=.git
