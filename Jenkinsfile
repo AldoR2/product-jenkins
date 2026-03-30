@@ -1,7 +1,7 @@
 node {
 
-    env.PROD_HOST = "172.27.208.248"
-    env.PROD_USER = "aldor"
+    env.PROD_HOST = "10.10.181.255"
+    env.PROD_USER = "aldo"
 
     checkout scm
 
