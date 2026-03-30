@@ -1,6 +1,6 @@
 node {
 
-    env.PROD_HOST = "localhost"
+    env.PROD_HOST = "host.docker.internal"
     env.PROD_USER = "aldor"
 
     checkout scm
