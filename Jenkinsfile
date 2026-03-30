@@ -1,6 +1,6 @@
 node {
 
-    env.PROD_HOST = "host.docker.internal"
+    env.PROD_HOST = "172.27.208.248"
     env.PROD_USER = "aldor"
 
     checkout scm
@@ -29,12 +29,11 @@ node {
 
     stage("Deploy"){
         docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
-
             sshagent (credentials: ['ssh-prod']) {
-                
-                sh 'mkdir -p ~/.ssh'
-                sh 'ssh-keyscan -H $PROD_HOST >> ~/.ssh/known_hosts'
+                sh 'mkdir -p ~/.ssh && chmod 700 ~/.ssh'
+                sh "ssh-keyscan -H $PROD_HOST >> ~/.ssh/known_hosts"
 
+                // Proses Sync File
                 sh '''
                 rsync -rav --delete ./ \
                 $PROD_USER@$PROD_HOST:/home/$PROD_USER/prod.product-jenkins.xyz/ \
@@ -42,6 +41,8 @@ node {
                 --exclude=storage \
                 --exclude=.git
                 '''
+
+                sh "ssh $PROD_USER@$PROD_HOST 'cd /home/$PROD_USER/prod.product-jenkins.xyz/ && composer install --no-dev && php artisan optimize'"
             }
         }
     }
