@@ -32,19 +32,17 @@ node {
             sshagent (credentials: ['ssh-prod']) {
                 sh 'mkdir -p ~/.ssh && chmod 700 ~/.ssh'
                 sh "ssh-keyscan -H $PROD_HOST >> ~/.ssh/known_hosts"
-
                 // Proses Sync File
                 sh '''
                 rsync -rav --delete ./ \
+                --no-perms --no-owner --no-group --omit-dir-times \
                 -e "ssh -o StrictHostKeyChecking=no" \
                 $PROD_USER@$PROD_HOST:/home/$PROD_USER/prod.product-jenkins.xyz/ \
                 --exclude=.env \
                 --exclude=storage \
                 --exclude=.git
                 '''
-
                 
-
                 sh "ssh $PROD_USER@$PROD_HOST 'cd /home/$PROD_USER/prod.product-jenkins.xyz/ && composer install --no-dev && php artisan optimize'"
             }
         }
