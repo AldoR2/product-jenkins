@@ -1,6 +1,6 @@
 <x-guest-layout>
     <h2 class="text-3xl font-bold mb-6 text-gray-800 dark:text-white text-center">
-        Login
+        Login Aldoooo
     </h2>
 
     <div class="mb-7 text-sm text-gray-600 dark:text-gray-400 text-center">
@@ -16,7 +16,8 @@
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
+            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required
+                autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
@@ -26,15 +27,11 @@
 
             <div class="relative">
                 <!-- Input password -->
-                <input id="password"
-                    class="block mt-1 w-full pr-10 border-gray-300 rounded-md shadow-sm"
-                    x-bind:type="show ? 'text' : 'password'"
-                    name="password"
-                    required autocomplete="current-password" />
+                <input id="password" class="block mt-1 w-full pr-10 border-gray-300 rounded-md shadow-sm"
+                    x-bind:type="show ? 'text' : 'password'" name="password" required autocomplete="current-password" />
 
                 <!-- Tombol icon mata -->
-                <button type="button"
-                    @click="show = !show"
+                <button type="button" @click="show = !show"
                     class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700 transition">
                     <i x-bind:class="show ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
                 </button>
@@ -47,11 +44,14 @@
         <div class="block mt-4 mb-9">
             <div class="flex justify-between">
                 <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-blue-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                    <input id="remember_me" type="checkbox"
+                        class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-blue-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                        name="remember">
                     <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Ingat Aku') }}</span>
                 </label>
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                        href="{{ route('password.request') }}">
                         {{ __('Lupa Password?') }}
                     </a>
                 @endif
