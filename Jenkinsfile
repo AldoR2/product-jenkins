@@ -1,6 +1,6 @@
 node {
 
-    env.PROD_HOST = "10.10.21.90"
+    env.PROD_HOST = "10.10.5.73"
     env.PROD_USER = "aldo"
 
     checkout scm
